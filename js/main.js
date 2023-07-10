@@ -36,7 +36,7 @@ function submitForm(event) {
     //ora inserisco la condizione del prezzo con l'orario
     let totalPrice = 0;
 
-    switch (totalPrice) {
+    switch (typeOfWork) {
         case 1:
             totalPrice = 20.5 * hoursOfWork;
             break;
