@@ -22,7 +22,7 @@ Il risultato del calcolo del prezzo finale deve essere visualizzato in “forma 
 
 
 // Per i codici promozionali uso un array
-let discountCodeAvaible = ["YHDNU32", "JANJC63", "PWKCN25", "SJDPO96", "POCIE24"];
+let discountCodeAvailable = ["YHDNU32", "JANJC63", "PWKCN25", "SJDPO96", "POCIE24"];
 
 
 // Dichiaro la funzione del Form
@@ -34,7 +34,7 @@ function submitForm(event) {
 
 
     let hoursOfWork = parseInt(document.getElementById("inputHours").value);
-    let typeOfWork = document.getElementById("inputType").value;
+    let typeOfWork = parseInt(document.getElementById("inputType").value);
     let discountCode = document.getElementById("inputDiscount").value;
 
     // Ora inserisco la condizione del prezzo con l'orario
@@ -43,44 +43,46 @@ function submitForm(event) {
     switch (typeOfWork) {
         case 1:
             // Backend Development price
-            totalPrice = 20.5 * hoursOfWork;
+            totalPrice = hoursOfWork * 20.5;
             break;
 
         case 2:
             // Frontend Development price
-            totalPrice = 15.3 * hoursOfWork;
+            totalPrice = hoursOfWork * 15.3;
             break;
 
         case 3:
             // Project Analyst price
-            totalPrice = 33.6 * hoursOfWork;
+            totalPrice = hoursOfWork * 33.6;
+            break;
     }
 
 
     // Uso i codici promozionali per applicare gli sconti (se ce ne sono)
     let code = false;
-    for (let i = 0; i < discountCodeAvaible.length; i++) {
-        if (discountCodeAvaible[i] === discountCode) {
+    for (let i = 0; i < discountCodeAvailable.length; i++) {
+        if (discountCodeAvailable[i] === discountCode) {
             code = true;
             break;
         }
 
-        // Se il codice promozionale non è valido, il sito informerà l'utente
-        if (!code) {
-            alert("Il codice inserito non è valido!");
+    }
 
-        }
+    // Se il codice promozionale non è valido, il sito informerà l'utente
+    if (discountCode != "" && !code) {
+        alert("Il codice inserito non è valido!");
+    }
 
-        // Se il codice promozionale è valido, verrà applicato un ulteriore sconto del 25%
+    // Se il codice promozionale è valido, verrà applicato un ulteriore sconto del 25%
 
-        if (code) {
-            totalPrice = 0.25 * totalPrice;
-
-        }
+    if (code) {
+        totalPrice = totalPrice * 0.75;
 
     }
+
+
     // Inserisco il prezzo nell'HTML
-    document.getElementById("price_result").innerHTML = "Il prezzo totale è di: " + totalPrice.toFixed(2);
+    document.getElementById("price_result").innerHTML = "Il prezzo totale è di: €" + totalPrice.toFixed(2);
 
 
 
