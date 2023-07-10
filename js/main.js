@@ -17,11 +17,15 @@ L’utente potrebbe decidere di utilizzare un codice promozionale tra i seguenti
 
 Se l’utente inserisce un codice promozionale valido, ha diritto ad uno sconto del 25% sul prezzo finale. 
 Se il codice inserito non è valido, il sito deve informare l’utente che il codice non è valido e il prezzo finale viene calcolato senza applicare sconti.
-Il risultato del calcolo del prezzo finale deve essere visualizzato in “forma umana” (con 2 decimali e il simbolo dell’euro) in un apposito tag HTML appena sotto il bottone send. */
+Il risultato del calcolo del prezzo finale deve essere visualizzato in “forma umana” (con 2 decimali e il simbolo dell’euro) in un apposito tag HTML appena sotto il bottone send.
+*/
 
 
+// Per i codici promozionali uso un array
+let discountCodeAvaible = ["YHDNU32", "JANJC63", "PWKCN25", "SJDPO96", "POCIE24"];
 
-//Dichiaro la funzione del Form
+
+// Dichiaro la funzione del Form
 function submitForm(event) {
     event.preventDefault();
 
@@ -33,22 +37,50 @@ function submitForm(event) {
     let typeOfWork = document.getElementById("inputType").value;
     let discountCode = document.getElementById("inputDiscount").value;
 
-    //ora inserisco la condizione del prezzo con l'orario
+    // Ora inserisco la condizione del prezzo con l'orario
     let totalPrice = 0;
 
     switch (typeOfWork) {
         case 1:
+            // Backend Development price
             totalPrice = 20.5 * hoursOfWork;
             break;
 
         case 2:
+            // Frontend Development price
             totalPrice = 15.3 * hoursOfWork;
             break;
 
         case 3:
+            // Project Analyst price
             totalPrice = 33.6 * hoursOfWork;
     }
 
+
+    // Uso i codici promozionali per applicare gli sconti (se ce ne sono)
+    let code = false;
+    for (let i = 0; i < discountCodeAvaible.length; i++) {
+        if (discountCodeAvaible[i] === discountCode) {
+            code = true;
+            break;
+        }
+
+        // Se il codice promozionale non è valido, il sito informerà l'utente
+        if (!code) {
+            alert("Il codice inserito non è valido!");
+
+        }
+
+        // Se il codice promozionale è valido, verrà applicato un ulteriore sconto del 25%
+
+        if (code) {
+            totalPrice = 0.25 * totalPrice;
+
+        }
+
+    }
+    // Inserisco il prezzo nell'HTML
+    document.getElementById("price_result").innerHTML = "Il prezzo totale è di: " + totalPrice.toFixed(2);
 
 
 
