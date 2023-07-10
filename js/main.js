@@ -23,7 +23,7 @@ Il risultato del calcolo del prezzo finale deve essere visualizzato in “forma 
 
 //Dichiaro la funzione del Form
 function submitForm(event) {
-    event.preveDefault();
+    event.preventDefault();
 
     console.log("il form funziona!");
 
@@ -31,5 +31,25 @@ function submitForm(event) {
 
     let hoursOfWork = parseInt(document.getElementById("inputHours").value);
     let typeOfWork = document.getElementById("inputType").value;
-    let discountCode = docume.getElementById("inputDiscount").value;
+    let discountCode = document.getElementById("inputDiscount").value;
+
+    //ora inserisco la condizione del prezzo con l'orario
+    let totalPrice = 0;
+
+    switch (totalPrice) {
+        case 1:
+            totalPrice = 20.5 * hoursOfWork;
+            break;
+
+        case 2:
+            totalPrice = 15.3 * hoursOfWork;
+            break;
+
+        case 3:
+            totalPrice = 33.6 * hoursOfWork;
+    }
+
+
+
+
 }
